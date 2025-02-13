@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bxju7wigwc8a1"]
+
+[node name="Credits" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 802.0
+offset_bottom = 406.0
+text = "Game by Kuukitenshi
+
+Assets:
+Kenney
+
+Music:
+MikeeUSA
+Ted Kerr"

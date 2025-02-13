@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx5ryyla3uwrg"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_tl24u"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_tl24u")
+
+[node name="TitleGame" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 156.0
+offset_right = 1151.0
+offset_bottom = 179.0
+theme_type_variation = &"HeaderLarge"
+text = "2D Platformer"
+horizontal_alignment = 1
+
+[node name="Options" type="VFlowContainer" parent="."]
+offset_left = 505.0
+offset_top = 218.0
+offset_right = 647.0
+offset_bottom = 340.0
+
+[node name="StartButton" type="Button" parent="Options"]
+layout_mode = 2
+text = "Start"
+
+[node name="FullscreenButton" type="Button" parent="Options"]
+layout_mode = 2
+text = "Toggle Fullscreen"
+
+[node name="QuitButton" type="Button" parent="Options"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="Options/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Options/QuitButton" to="." method="_on_quit_button_pressed"]

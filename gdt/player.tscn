@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgnxtvac0q65d"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ysn15"]
+[ext_resource type="Texture2D" uid="uid://dtxqnn1k7jwrr" path="res://monochrome_tilemap_transparent.png" id="2_uesdk"]
+[ext_resource type="AudioStream" uid="uid://bddwv5kgg5fxh" path="res://jump (1).wav" id="3_6uxeo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0tll"]
+atlas = ExtResource("2_uesdk")
+region = Rect2(0, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mifaq"]
+atlas = ExtResource("2_uesdk")
+region = Rect2(68, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wthu"]
+atlas = ExtResource("2_uesdk")
+region = Rect2(17, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17nsn"]
+atlas = ExtResource("2_uesdk")
+region = Rect2(34, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn3ai"]
+atlas = ExtResource("2_uesdk")
+region = Rect2(51, 204, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k54p7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0tll")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mifaq")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wthu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17nsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn3ai")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ws3ba"]
+radius = 4.0
+height = 10.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ysn15")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.623529, 0.529412, 1, 1)
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_k54p7")
+animation = &"jump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ws3ba")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_left = 0
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+
+[node name="JumpSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6uxeo")
+volume_db = -2.0
