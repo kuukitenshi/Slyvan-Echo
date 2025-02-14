@@ -23,7 +23,7 @@ animations = [{
 }]
 
 [node name="Gem" type="Area2D"]
-modulate = Color(0.956503, 0.872068, 0.506027, 1)
+modulate = Color(0.905882, 0.270588, 0.403922, 1)
 script = ExtResource("1_rupqi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

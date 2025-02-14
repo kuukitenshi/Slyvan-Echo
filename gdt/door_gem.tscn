@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cegy44jfn4bvn"]
+
+[ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="1_axy6g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfq0n"]
+atlas = ExtResource("1_axy6g")
+region = Rect2(272, 34, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gc0q8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfq0n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gypy"]
+size = Vector2(14, 16)
+
+[node name="DoorGem" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.5, -0.5)
+scale = Vector2(0.9375, 1.0625)
+sprite_frames = SubResource("SpriteFrames_gc0q8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_3gypy")

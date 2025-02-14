@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0wk17bnd1fys"]
+
+[ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="2_xl1sh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwu5j"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(102, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n5yp"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(68, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebhwi"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(85, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0mqc"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(0, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b68jd"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(17, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06dko"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(34, 306, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmqqb"]
+atlas = ExtResource("2_xl1sh")
+region = Rect2(51, 306, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vnwnv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwu5j")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n5yp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebhwi")
+}],
+"loop": true,
+"name": &"hide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0mqc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b68jd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06dko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmqqb")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phfu0"]
+radius = 35.0
+height = 70.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bp6bh"]
+radius = 5.0
+
+[node name="enemy_red" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vnwnv")
+animation = &"hide"
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_phfu0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_bp6bh")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_area_2d_body_exited"]

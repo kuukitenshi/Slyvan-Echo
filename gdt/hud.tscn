@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjbwtdndj7lx0"]
+[gd_scene load_steps=3 format=3 uid="uid://bjbwtdndj7lx0"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_1365i"]
+[ext_resource type="Texture2D" uid="uid://cjt3re4tvo6td" path="res://tile_0042.png" id="3_hmip7"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1365i")
@@ -18,3 +19,18 @@ offset_top = 42.0
 offset_right = 77.0
 offset_bottom = 65.0
 text = "Gems: 0"
+
+[node name="Life" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hearts" type="TextureRect" parent="Life"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+layout_mode = 0
+offset_left = 770.0
+offset_top = 17.0
+offset_right = 810.0
+offset_bottom = 57.0
+texture = ExtResource("3_hmip7")

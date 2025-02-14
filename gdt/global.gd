@@ -1,10 +1,12 @@
 extends Node
-
-var gems_collected = 0;
+#
+#var gems_collected = 0;
+var player_curr_attack = false
 
 func _ready() -> void:
-	print("gems:")
-	print(gems_collected)
+	#print("gems:")
+	#print(gems_collected)
+	pass
 
 func _input(event):
 	if event.is_action_pressed("return_to_main_menu"):
