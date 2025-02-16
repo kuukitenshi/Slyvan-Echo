@@ -55,8 +55,9 @@ func deal_with_dmg():
 			$takeDmgCooldown.start()
 			can_take_dmg = false
 			if health <= 0:
-				self.queue_free()
 				$AnimatedSprite2D.play("dead")
+				await get_tree().create_timer(2).timeout
+				self.queue_free()
 
 
 func _on_take_dmg_cooldown_timeout() -> void:

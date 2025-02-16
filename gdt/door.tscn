@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dtxqnn1k7jwrr" path="res://monochrome_tilemap_transparent.png" id="1_jqnhx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6y7b"]
-size = Vector2(14, 15)
+size = Vector2(28, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h36ek"]
 atlas = ExtResource("1_jqnhx")
@@ -25,7 +25,7 @@ animations = [{
 script = ExtResource("1_2vmaf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_c6y7b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

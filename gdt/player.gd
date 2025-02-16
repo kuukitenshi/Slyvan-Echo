@@ -75,7 +75,7 @@ func update_heart_display():
 	if health <= 0:
 		player_is_alive = false
 		$AnimatedSprite2D.play("dead")
-#		TODO: METER MUSICA DE MORTE, respawn
+		$deathsfx.play()
 		health = 0
 		visible = false
 		await get_tree().create_timer(1).timeout

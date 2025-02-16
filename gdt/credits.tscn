@@ -1,15 +1,40 @@
-[gd_scene format=3 uid="uid://bxju7wigwc8a1"]
+[gd_scene load_steps=2 format=3 uid="uid://bxju7wigwc8a1"]
+
+[ext_resource type="AudioStream" uid="uid://brh6ehqs6cbcg" path="res://credits.mp3" id="1_e17ae"]
 
 [node name="Credits" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-offset_right = 802.0
-offset_bottom = 406.0
-text = "Game by Kuukitenshi
+offset_left = 4.0
+offset_top = 119.0
+offset_right = 1147.0
+offset_bottom = 412.0
+theme_override_colors/font_outline_color = Color(0, 0.573614, 0.498453, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "Congratulations! You finally unlocked the mysterious door...
 
-Assets:
-Kenney
+Behind it lies the greatest secret of all time...
 
-Music:
-MikeeUSA
-Ted Kerr"
+
+
+
+Oh wait, never mind :) That’s in the Deluxe Ultra True Ending DLC™. Only $99.99!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 589.0
+offset_right = 1150.0
+offset_bottom = 644.0
+theme_override_colors/font_outline_color = Color(0.762635, 0.344853, 0.31261, 1)
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 17
+text = "Game by Kuukitenshi"
+horizontal_alignment = 1
+
+[node name="creditssfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_e17ae")
+autoplay = true

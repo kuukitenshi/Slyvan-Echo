@@ -2,11 +2,9 @@ extends Node2D
 
 class_name Level
 
-@export var level_num = ""
 @export var level_start_pos : Node2D
 
 func _ready() -> void:
-	$HUD.level(level_num)
 	set_gems_label()
 	for gem in $Gems.get_children():
 		#gem.gem_collected.connect(_on_gem_collected)
@@ -20,4 +18,8 @@ func set_gems_label():
 	pass
 
 func _on_door_player_entered(level: Variant) -> void:
-	get_tree().change_scene_to_file(level)
+	$endsfx.play()
+	
+	
+func _on_endsfx_finished() -> void:
+	get_tree().change_scene_to_file("res://credits.tscn")

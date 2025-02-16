@@ -29,10 +29,15 @@ text = "Start"
 layout_mode = 2
 text = "Toggle Fullscreen"
 
+[node name="helpButton" type="Button" parent="Options"]
+layout_mode = 2
+text = "Help"
+
 [node name="QuitButton" type="Button" parent="Options"]
 layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="Options/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Options/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="Options/helpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="Options/QuitButton" to="." method="_on_quit_button_pressed"]
