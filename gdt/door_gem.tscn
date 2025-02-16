@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cegy44jfn4bvn"]
+[gd_scene load_steps=9 format=3 uid="uid://cegy44jfn4bvn"]
 
 [ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="1_axy6g"]
 [ext_resource type="Script" path="res://door_gem.gd" id="1_wi2s6"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ie5jh"]
+radius = 15.0333
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gypy"]
-size = Vector2(23, 21)
+size = Vector2(13, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfq0n"]
 atlas = ExtResource("1_axy6g")
@@ -36,11 +39,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="DoorGem" type="Area2D"]
+[node name="DoorGem" type="StaticBody2D"]
+disable_mode = 1
 script = ExtResource("1_wi2s6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -0.5)
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ie5jh")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_3gypy")
 
 [node name="closed" type="AnimatedSprite2D" parent="."]
@@ -53,3 +62,5 @@ visible = false
 position = Vector2(-0.08, -0.5)
 scale = Vector2(1, 1.063)
 sprite_frames = SubResource("SpriteFrames_8b7d1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

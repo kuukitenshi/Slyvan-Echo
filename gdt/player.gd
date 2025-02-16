@@ -1,15 +1,19 @@
 extends CharacterBody2D
 
+class_name Player
+
 const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
 
-var hearts_list : Array[TextureRect]
+var hearts_list : Array[TextureRect] = []
 var health = 5
 
 var enemy_in_attack_range = false
 var enemy_attack_coldown = true
 var player_is_alive = true
 var attack_in_progress = false
+
+var gem_list : Array[String] = []
 
 @export var level_start_pos : Node2D
 
@@ -42,6 +46,7 @@ func player_movement(delta):
 		
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
+		#velocity.x = direction * SPEED 
 		position.x += direction * SPEED * delta
 		$AnimatedSprite2D.play("run")
 		if direction == -1:
@@ -89,8 +94,6 @@ func reset_player() -> void:
 	player_is_alive = true
 	health = 6
 	health_player()
-	
-	
 	
 func health_player():
 	if health < 5:

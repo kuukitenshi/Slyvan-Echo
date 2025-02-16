@@ -1,11 +1,8 @@
 extends Node
-#
-#var gems_collected = 0;
+
 var player_curr_attack = false
 
 func _ready() -> void:
-	#print("gems:")
-	#print(gems_collected)
 	pass
 
 func _input(event):
