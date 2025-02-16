@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpf0umcj00p5t"]
+
+[ext_resource type="Texture2D" uid="uid://4jbjtp2p0kc6" path="res://froggy-green.png" id="1_quew8"]
+[ext_resource type="Script" path="res://heal_frog.gd" id="1_xevsp"]
+[ext_resource type="AudioStream" uid="uid://dibwrttvnk4oc" path="res://frog-qua-cry-36013.mp3" id="3_u6ife"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rex1y"]
+atlas = ExtResource("1_quew8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2fid"]
+atlas = ExtResource("1_quew8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5rj8"]
+atlas = ExtResource("1_quew8")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dc8ey"]
+atlas = ExtResource("1_quew8")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v02hk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rex1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2fid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5rj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dc8ey")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcrmw"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3sriw"]
+radius = 35.0
+height = 70.0
+
+[node name="HealFrog" type="CharacterBody2D"]
+script = ExtResource("1_xevsp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v02hk")
+animation = &"idle"
+frame = 3
+frame_progress = 0.430555
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_pcrmw")
+
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_3sriw")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_u6ife")
+max_distance = 200.0
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

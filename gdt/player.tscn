@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgnxtvac0q65d"]
+[gd_scene load_steps=14 format=3 uid="uid://cgnxtvac0q65d"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ysn15"]
 [ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="2_npvvt"]
 [ext_resource type="AudioStream" uid="uid://bddwv5kgg5fxh" path="res://jump (1).wav" id="3_6uxeo"]
+[ext_resource type="Texture2D" uid="uid://cjt3re4tvo6td" path="res://tile_0042.png" id="5_hbcva"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7q8ey"]
 atlas = ExtResource("2_npvvt")
@@ -75,8 +76,7 @@ height = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uilpo"]
 
-[node name="Player" type="CharacterBody2D"]
-collision_layer = 3
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ysn15")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -111,6 +111,43 @@ shape = SubResource("CircleShape2D_uilpo")
 wait_time = 0.5
 
 [node name="DealAttack" type="Timer" parent="."]
+
+[node name="health_bar" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="health_bar"]
+offset_left = 736.0
+offset_right = 1152.0
+offset_bottom = 80.0
+
+[node name="Heart" type="TextureRect" parent="health_bar/HBoxContainer"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_hbcva")
+
+[node name="Heart2" type="TextureRect" parent="health_bar/HBoxContainer"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_hbcva")
+
+[node name="Heart3" type="TextureRect" parent="health_bar/HBoxContainer"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_hbcva")
+
+[node name="Heart4" type="TextureRect" parent="health_bar/HBoxContainer"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_hbcva")
+
+[node name="Heart5" type="TextureRect" parent="health_bar/HBoxContainer"]
+modulate = Color(0.870588, 0.258824, 0.301961, 1)
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("5_hbcva")
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]

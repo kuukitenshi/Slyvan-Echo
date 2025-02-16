@@ -1,6 +1,9 @@
 extends Node2D
 
+class_name Level
+
 @export var level_num = ""
+@export var level_start_pos : Node2D
 
 func _ready() -> void:
 	$HUD.level(level_num)

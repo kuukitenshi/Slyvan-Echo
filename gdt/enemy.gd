@@ -13,9 +13,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	deal_with_dmg()
-	
 	if player_chase:
-		position += (player.position - position)/ speed
+		position += (player.position - position)/speed
 		$AnimatedSprite2D.play("walk")
 		if(player.position.x - position.x) < 0:
 			$AnimatedSprite2D.flip_h = true
@@ -26,12 +25,15 @@ func _physics_process(delta: float) -> void:
 		
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	player = body
-	player_chase = true
+	if body.is_in_group("player"):
+		print(body)
+		player = body
+		player_chase = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	player = body
-	player_chase = false
+	if body.is_in_group("player"):
+		player = body
+		player_chase = false
 
 func enemy():
 	pass

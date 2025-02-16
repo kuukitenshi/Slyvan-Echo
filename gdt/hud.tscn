@@ -1,36 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjbwtdndj7lx0"]
+[gd_scene load_steps=2 format=3 uid="uid://bjbwtdndj7lx0"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_1365i"]
-[ext_resource type="Texture2D" uid="uid://cjt3re4tvo6td" path="res://tile_0042.png" id="3_hmip7"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1365i")
 
 [node name="CurrentLevel" type="Label" parent="."]
-offset_left = 14.0
-offset_top = 12.0
-offset_right = 103.0
-offset_bottom = 35.0
+offset_left = 25.0
+offset_top = 24.0
+offset_right = 378.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 64
 text = "Level name"
 
 [node name="GemsLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 42.0
-offset_right = 77.0
-offset_bottom = 65.0
+offset_left = 29.0
+offset_top = 147.0
+offset_right = 275.0
+offset_bottom = 235.0
+theme_override_colors/font_outline_color = Color(0, 0.52549, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 6
+theme_override_font_sizes/font_size = 30
 text = "Gems: 0"
-
-[node name="Life" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Hearts" type="TextureRect" parent="Life"]
-modulate = Color(0.870588, 0.258824, 0.301961, 1)
-layout_mode = 0
-offset_left = 770.0
-offset_top = 17.0
-offset_right = 810.0
-offset_bottom = 57.0
-texture = ExtResource("3_hmip7")

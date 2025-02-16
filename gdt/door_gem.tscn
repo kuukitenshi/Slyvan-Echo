@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cegy44jfn4bvn"]
+[gd_scene load_steps=8 format=3 uid="uid://cegy44jfn4bvn"]
 
 [ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="1_axy6g"]
+[ext_resource type="Script" path="res://door_gem.gd" id="1_wi2s6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gypy"]
+size = Vector2(23, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfq0n"]
 atlas = ExtResource("1_axy6g")
@@ -17,16 +21,35 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gypy"]
-size = Vector2(14, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsdtp"]
+atlas = ExtResource("1_axy6g")
+region = Rect2(306, 34, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8b7d1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsdtp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="DoorGem" type="Area2D"]
+script = ExtResource("1_wi2s6")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_3gypy")
+
+[node name="closed" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.5, -0.5)
 scale = Vector2(0.9375, 1.0625)
 sprite_frames = SubResource("SpriteFrames_gc0q8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_3gypy")
+[node name="open" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-0.08, -0.5)
+scale = Vector2(1, 1.063)
+sprite_frames = SubResource("SpriteFrames_8b7d1")

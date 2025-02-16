@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxl8yr7swtas5"]
+
+[ext_resource type="Script" path="res://spikes_zone.gd" id="1_0k831"]
+[ext_resource type="AudioStream" uid="uid://dswbr4s7gn14v" path="res://hurtSpikes.wav" id="2_50yih"]
+
+[node name="SpikesZone" type="Area2D"]
+script = ExtResource("1_0k831")
+
+[node name="SpikesDmgSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_50yih")
+volume_db = -10.045
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
