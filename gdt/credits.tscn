@@ -5,14 +5,14 @@
 [node name="Credits" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-offset_left = 4.0
-offset_top = 119.0
-offset_right = 1147.0
-offset_bottom = 412.0
+offset_left = 1.0
+offset_top = 116.0
+offset_right = 1148.0
+offset_bottom = 433.0
 theme_override_colors/font_outline_color = Color(0, 0.573614, 0.498453, 1)
-theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 1
-theme_override_font_sizes/font_size = 24
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 27
 text = "Congratulations! You finally unlocked the mysterious door...
 
 Behind it lies the greatest secret of all time...

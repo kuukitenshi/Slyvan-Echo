@@ -1,41 +1,89 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx5ryyla3uwrg"]
+[gd_scene load_steps=10 format=3 uid="uid://cx5ryyla3uwrg"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_tl24u"]
+[ext_resource type="Texture2D" uid="uid://bg242qclthmhv" path="res://background.png" id="2_cdwn0"]
+[ext_resource type="AudioStream" uid="uid://bjlt5gl0twpsm" path="res://arcticambienttheme.wav" id="2_qv5g5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmj5s"]
+atlas = ExtResource("2_cdwn0")
+region = Rect2(0, 0, 1140, 623)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ig5gi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmj5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ms3y5"]
+bg_color = Color(0.434074, 0.656709, 0.555259, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwqg7"]
+bg_color = Color(0.435294, 0.654902, 0.556863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38cc4"]
+bg_color = Color(0.435294, 0.654902, 0.556863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pj4v2"]
+bg_color = Color(0.435294, 0.654902, 0.556863, 1)
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_tl24u")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(575, 322.25)
+scale = Vector2(1.01053, 1.03933)
+sprite_frames = SubResource("SpriteFrames_ig5gi")
+
 [node name="TitleGame" type="Label" parent="."]
-offset_top = 128.0
+offset_top = 149.0
 offset_right = 1148.0
-offset_bottom = 167.0
+offset_bottom = 218.0
 theme_type_variation = &"HeaderLarge"
-text = "2D Platformer"
+theme_override_colors/font_outline_color = Color(0, 0.572549, 0.498039, 1)
+theme_override_constants/outline_size = 11
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 50
+text = "Sylvan Echo"
 horizontal_alignment = 1
 
 [node name="Options" type="VFlowContainer" parent="."]
 offset_left = 507.0
 offset_top = 300.0
-offset_right = 649.0
+offset_right = 645.0
 offset_bottom = 491.0
+size_flags_vertical = 3
+theme_override_constants/v_separation = 12
 alignment = 1
-last_wrap_alignment = 1
+last_wrap_alignment = 2
 
 [node name="StartButton" type="Button" parent="Options"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ms3y5")
 text = "Start"
 
 [node name="FullscreenButton" type="Button" parent="Options"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_iwqg7")
 text = "Toggle Fullscreen"
 
 [node name="helpButton" type="Button" parent="Options"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_38cc4")
 text = "Help"
 
 [node name="QuitButton" type="Button" parent="Options"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_pj4v2")
 text = "Quit"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qv5g5")
+autoplay = true
 
 [connection signal="pressed" from="Options/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Options/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
