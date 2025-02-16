@@ -11,6 +11,8 @@ var enemy_attack_coldown = true
 var player_is_alive = true
 var attack_in_progress = false
 
+@export var level_start_pos : Node2D
+
 @onready var h_box_container: HBoxContainer = $health_bar/HBoxContainer
 
 
@@ -49,7 +51,7 @@ func player_movement(delta):
 	else:
 		#velocity.x = move_toward(velocity.x, 0, SPEED / 2)
 		$AnimatedSprite2D.play("idle")
-		
+	
 	if not is_on_floor():
 		$AnimatedSprite2D.play("jump")
 	move_and_slide()
@@ -82,9 +84,13 @@ func update_heart_display():
 		reset_player()
 	
 func reset_player() -> void:
-	position = get_parent().level_start_pos # TODO:
+	position = level_start_pos.position
 	visible = true
 	player_is_alive = true
+	health = 6
+	health_player()
+	
+	
 	
 func health_player():
 	if health < 5:
@@ -103,7 +109,7 @@ func attack():
 		Global.player_curr_attack = true
 		attack_in_progress  = true
 		if direction > 0: # dir
-			# bolas para a dir
+			# TODO: bolas para a dir
 			$DealAttack.start()
 		if direction == -1:
 			$DealAttack.start()
