@@ -8,9 +8,12 @@ var health = 100
 var player_in_attack_area = false
 var can_take_dmg = true
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@export var sprite: AnimatedSprite2D = null
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
+	sprite.visible = true
+	sprite.position = collision_shape_2d.position
 	sprite.play("idle")
 
 func _physics_process(delta: float) -> void:

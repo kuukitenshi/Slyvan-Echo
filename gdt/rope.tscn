@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxr674mgatjjm"]
+
+[ext_resource type="Script" path="res://rope.gd" id="1_p3hjh"]
+[ext_resource type="Texture2D" uid="uid://ce3mmpwrpf7s2" path="res://tile_0019.png" id="2_a8rm8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38n04"]
+size = Vector2(11, 80.5)
+
+[node name="Rope" type="Area2D" groups=["rope"]]
+position = Vector2(0.155, -9.425)
+script = ExtResource("1_p3hjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.155, 31.175)
+shape = SubResource("RectangleShape2D_38n04")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.227451, 0.647059, 0.141176, 1)
+position = Vector2(-0.155, -0.575)
+texture = ExtResource("2_a8rm8")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+self_modulate = Color(0.227451, 0.647059, 0.141176, 1)
+position = Vector2(-0.155, 63.425)
+texture = ExtResource("2_a8rm8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+self_modulate = Color(0.227451, 0.647059, 0.141176, 1)
+position = Vector2(-0.155, 47.425)
+texture = ExtResource("2_a8rm8")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+self_modulate = Color(0.227451, 0.647059, 0.141176, 1)
+position = Vector2(-0.155, 31.425)
+texture = ExtResource("2_a8rm8")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+self_modulate = Color(0.227451, 0.647059, 0.141176, 1)
+position = Vector2(-0.155, 15.425)
+texture = ExtResource("2_a8rm8")

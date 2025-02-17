@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgnxtvac0q65d"]
+[gd_scene load_steps=16 format=3 uid="uid://cgnxtvac0q65d"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ysn15"]
 [ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="2_npvvt"]
@@ -76,6 +76,10 @@ radius = 4.0
 height = 10.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uilpo"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqo8y"]
+radius = 8.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_ysn15")
@@ -153,7 +157,14 @@ texture = ExtResource("5_hbcva")
 [node name="deathsfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_yi53g")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_nqo8y")
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="timeout" from="AttackColdown" to="." method="_on_attack_coldown_timeout"]
 [connection signal="timeout" from="DealAttack" to="." method="_on_deal_attack_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

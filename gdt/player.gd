@@ -15,9 +15,15 @@ var attack_in_progress = false
 
 var gem_list : Array[String] = []
 var has_key = false
+var on_rope = false
+
+var target_position : Vector2
 
 @export var level_start_pos : Node2D
 @onready var h_box_container: HBoxContainer = $health_bar/HBoxContainer
+@onready var area_2d_rope: Area2D = $Area2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var camera_2d: Camera2D = $Camera2D
 
 
 func _ready() -> void:
@@ -26,8 +32,9 @@ func _ready() -> void:
 		hearts_list.append(child)
 	print(hearts_list)
 
-
 func _physics_process(delta: float) -> void:
+	target_position = target_position.lerp(global_position, delta * 50)
+	camera_2d.global_position = target_position
 	if not player_is_alive:
 		return
 	player_movement(delta)
@@ -35,32 +42,38 @@ func _physics_process(delta: float) -> void:
 	attack()
 	update_heart_display()
 
-
 func player_movement(delta):
-	if not is_on_floor():
+	if not is_on_floor() and not on_rope:
 		velocity += get_gravity() * delta
-		
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	
+	if Input.is_action_just_pressed("jump") and (is_on_floor() || on_rope):
+		if on_rope:
+			_exit_rope()
 		velocity.y = JUMP_VELOCITY
 		$JumpSfx.play()
 		
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		#velocity.x = direction * SPEED 
-		position.x += direction * SPEED * delta
-		$AnimatedSprite2D.play("run")
-		if direction == -1:
-			$AnimatedSprite2D.flip_h = true
-		else:
-			$AnimatedSprite2D.flip_h = false
-	else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED / 2)
-		$AnimatedSprite2D.play("idle")
+	var climbDirection = Input.get_axis("ui_up", "ui_down")
 	
+	if on_rope:
+		if climbDirection:
+			position.y += climbDirection
+	else:
+		if direction and not on_rope:
+			velocity.x = direction * SPEED 
+			sprite.play("run")
+			if direction == -1:
+				sprite.flip_h = true
+			else:
+				sprite.flip_h = false
+		elif not direction and not on_rope:
+			velocity.x = move_toward(velocity.x, 0, SPEED / 2)
+			sprite.play("idle")
+			
 	if not is_on_floor():
-		$AnimatedSprite2D.play("jump")
-	move_and_slide()
+		sprite.play("jump")
 
+	move_and_slide()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
@@ -70,9 +83,24 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		enemy_in_attack_range = false
 		
+func color_dmg():
+	var timer = 0.1
+	sprite.modulate = Color.DARK_RED
+	await get_tree().create_timer(timer).timeout
+	sprite.modulate = Color.WHITE
+	await get_tree().create_timer(timer).timeout
+	sprite.modulate = Color.DARK_RED
+	await get_tree().create_timer(timer).timeout
+	sprite.modulate = Color.WHITE
+	await get_tree().create_timer(timer).timeout
+	sprite.modulate = Color.DARK_RED
+	await get_tree().create_timer(timer).timeout
+	sprite.modulate = Color.WHITE
+
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_coldown == true:
 		health -= 1
+		color_dmg()
 		enemy_attack_coldown = false
 		$AttackColdown.start()
 	
@@ -81,7 +109,7 @@ func update_heart_display():
 		hearts_list[i].visible = i < health
 	if health <= 0:
 		player_is_alive = false
-		$AnimatedSprite2D.play("dead")
+		sprite.play("dead")
 		$deathsfx.play()
 		health = 0
 		visible = false
@@ -92,7 +120,7 @@ func reset_player() -> void:
 	position = level_start_pos.position
 	visible = true
 	player_is_alive = true
-	health = 6
+	health = 5
 	health_player()
 	
 func health_player():
@@ -125,6 +153,36 @@ func _on_deal_attack_timeout() -> void:
 func handle_spikes() -> void:
 	if health > 2:
 		health -= 2
+		color_dmg()
 	else:
 		health = 0
 	update_heart_display()
+
+func _enter_rope(area):
+	print("entrou")
+	on_rope = true
+	reparent(area)
+	global_position = area.get_rope_position(self)
+	rotation_degrees = 0
+	velocity = Vector2.ZERO
+#
+func _exit_rope():
+	print("a sair corda")
+	area_2d_rope.monitoring = false
+	on_rope = false 
+	print("antes reparent: ", get_parent())
+	reparent(get_tree().current_scene)
+	print("dps reparent: ", get_parent())
+	rotation_degrees = 0
+	await get_tree().create_timer(0.5).timeout
+	area_2d_rope.monitoring = true
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("rope") and not on_rope:
+		call_deferred("_enter_rope", area)
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("rope") and on_rope:
+		on_rope = false
+		reparent(get_tree().current_scene)
+		rotation_degrees = 0
