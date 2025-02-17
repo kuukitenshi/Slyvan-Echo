@@ -8,20 +8,22 @@ var health = 100
 var player_in_attack_area = false
 var can_take_dmg = true
 
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 func _ready() -> void:
-	$AnimatedSprite2D.play("idle")
+	sprite.play("idle")
 
 func _physics_process(delta: float) -> void:
 	deal_with_dmg()
 	if player_chase:
 		position += (player.position - position)/speed
-		$AnimatedSprite2D.play("walk")
+		sprite.play("walk")
 		if(player.position.x - position.x) < 0:
-			$AnimatedSprite2D.flip_h = true
+			sprite.flip_h = true
 		else:
-			$AnimatedSprite2D.flip_h = false
+			sprite.flip_h = false
 	else:
-		$AnimatedSprite2D.play("idle")
+		sprite.play("idle")
 		
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -55,7 +57,7 @@ func deal_with_dmg():
 			$takeDmgCooldown.start()
 			can_take_dmg = false
 			if health <= 0:
-				$AnimatedSprite2D.play("dead")
+				sprite.play("dead")
 				await get_tree().create_timer(2).timeout
 				self.queue_free()
 

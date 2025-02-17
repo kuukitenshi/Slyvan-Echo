@@ -1,26 +1,19 @@
 extends Area2D
 
-signal key_collected
-signal door_opened
+class_name Key
 
-var key_taken = false
-var in_door_zone = false
+signal key_collected
+
+@export var door : Node2D  = null
+@onready var collected_key_sfx: AudioStreamPlayer = $CollectedKeySfx
+
 
 func _on_body_entered(body):
-	if body.name == "Player" and key_taken == false:
+	if body.name == "Player":
+		body.has_key = true
 		key_collected.emit()
-		key_taken = true
-		$CollectedKeySfx.play()
+		collected_key_sfx.play()
 		hide()
 
-func _process(delta: float) -> void:
-	if key_taken and in_door_zone:
-		if Input.is_action_just_pressed("interact"):
-			door_opened.emit()
-			queue_free()
-
-func _on_door_key_body_entered(body: Node2D) -> void:
-	in_door_zone = true
-
-func _on_door_key_body_exited(body: Node2D) -> void:
-	in_door_zone = false
+func _on_collected_key_sfx_finished() -> void:
+	queue_free()

@@ -14,9 +14,9 @@ var player_is_alive = true
 var attack_in_progress = false
 
 var gem_list : Array[String] = []
+var has_key = false
 
 @export var level_start_pos : Node2D
-
 @onready var h_box_container: HBoxContainer = $health_bar/HBoxContainer
 
 

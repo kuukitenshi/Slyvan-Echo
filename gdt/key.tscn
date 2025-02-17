@@ -39,3 +39,4 @@ stream = ExtResource("3_3jdbs")
 volume_db = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="CollectedKeySfx" to="." method="_on_collected_key_sfx_finished"]

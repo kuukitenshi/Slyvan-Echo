@@ -1,57 +1,72 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1gwxlenpemqh"]
+[gd_scene load_steps=9 format=3 uid="uid://cy6oxqbylv8vg"]
 
 [ext_resource type="Texture2D" uid="uid://di8at2fc58m7y" path="res://colored_tilemap_transparent.png" id="1_8lej0"]
+[ext_resource type="Script" path="res://door_key.gd" id="1_cf67a"]
 
-[sub_resource type="GDScript" id="GDScript_gck41"]
-script/source = "extends Area2D
+[sub_resource type="CircleShape2D" id="CircleShape2D_11qdr"]
+radius = 15.0333
 
-signal in_door_key_area
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_un4wd"]
+size = Vector2(14, 16)
 
-func _on_body_entered(body: Node2D) -> void:
-	in_door_key_area.emit()
-
-
-func _on_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
-"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5bjjg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocrkp"]
 atlas = ExtResource("1_8lej0")
-region = Rect2(306, 34, 16, 16)
+region = Rect2(289, 34, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_gc0q8"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8o1yf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5bjjg")
+"texture": SubResource("AtlasTexture_ocrkp")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cuvfs"]
+atlas = ExtResource("1_8lej0")
+region = Rect2(306, 34, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nr6j6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cuvfs")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gypy"]
-size = Vector2(22, 16)
+[node name="DoorKey" type="StaticBody2D"]
+script = ExtResource("1_cf67a")
 
-[node name="DoorKey" type="Area2D"]
-script = SubResource("GDScript_gck41")
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -3.05176e-05)
 
-[node name="close" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(0.886275, 0.670588, 0.2, 1)
-position = Vector2(1025, 391.5)
-scale = Vector2(0.9375, 1.0625)
-sprite_frames = SubResource("SpriteFrames_gc0q8")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1027, 392)
+shape = SubResource("CircleShape2D_11qdr")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(1027, 392)
+shape = SubResource("RectangleShape2D_un4wd")
+
+[node name="closed" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.886275, 0.670588, 0.2, 1)
+position = Vector2(1027, 392)
+scale = Vector2(0.9375, 1)
+sprite_frames = SubResource("SpriteFrames_8o1yf")
+animation = &"new_animation"
 
 [node name="open" type="AnimatedSprite2D" parent="."]
 visible = false
+modulate = Color(0.886275, 0.670588, 0.2, 1)
 self_modulate = Color(0.886275, 0.670588, 0.2, 1)
 position = Vector2(1025, 391.5)
 scale = Vector2(0.9375, 1.0625)
-sprite_frames = SubResource("SpriteFrames_gc0q8")
+sprite_frames = SubResource("SpriteFrames_nr6j6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1021, 392)
-shape = SubResource("RectangleShape2D_3gypy")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

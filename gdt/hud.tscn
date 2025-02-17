@@ -7,25 +7,6 @@
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1365i")
 
-[node name="CurrentLevel" type="Label" parent="."]
-offset_left = 721.0
-offset_top = 174.0
-offset_right = 1074.0
-offset_bottom = 262.0
-theme_override_font_sizes/font_size = 64
-text = "Level name"
-
-[node name="GemsLabel" type="Label" parent="."]
-offset_left = 783.0
-offset_top = 282.0
-offset_right = 1029.0
-offset_bottom = 370.0
-theme_override_colors/font_outline_color = Color(0, 0.52549, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_constants/shadow_outline_size = 6
-theme_override_font_sizes/font_size = 30
-text = "Gems: 0"
-
 [node name="collectiblesBar" type="HBoxContainer" parent="."]
 offset_left = 5.0
 offset_top = 7.0
